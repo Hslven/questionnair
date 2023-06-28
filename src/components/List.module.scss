@@ -1,0 +1,12 @@
+.list{
+  color:#000;
+  width: 100%;
+  min-height: 3.75rem;
+  padding: .625rem;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  .header{
+    display: flex;
+    justify-content: space-between;
+  }
+}

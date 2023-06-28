@@ -1,0 +1,12 @@
+.app {
+  width: 65rem;
+  min-height: 20rem;
+  padding: 1rem;
+  background-color: #ecf1f0;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+}
