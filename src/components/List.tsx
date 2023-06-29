@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from "react";
-import { Divider, Button, Space } from "antd";
+import { Divider, Button, Space,Tag } from "antd";
 import { EditOutlined, DotChartOutlined, DeleteOutlined, CopyOutlined, StarOutlined } from "@ant-design/icons";
 import style from "./List.module.scss";
 type Props = {
@@ -26,7 +26,7 @@ const Demo: FC<Props> = ({ title, isPublished, isStar, _id, onClickEdit, onClick
           </Space>
         </span>
         <div>
-          <span style={{ marginRight: '5px' }}>{!isPublished ? "未发布" : <span style={{ color: 'green' }}>已发布</span>}</span>
+          <span style={{ marginRight: '5px' }}>{!isPublished ? <Tag>未发布</Tag> :<Tag color="#87d068">已发布</Tag>}</span>
           <span>答卷:0 {time}</span>
         </div>
       </div>

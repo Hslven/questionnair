@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Suspense, lazy } from "react";
-import { Spin } from "antd";
+import { Spin, Space } from "antd";
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";
 import Register from "@/pages/Register";
@@ -15,20 +15,28 @@ import Stat from "@/pages/question/stat";
 // import Transh from "@/pages/manage/Transh";
 const MainLayout = lazy(() => import("@/layouts/MainLayout"));
 const Trash = lazy(() => import("@/pages/manage/Trash"));
+const loading: React.CSSProperties = {
+  position: "absolute",
+  left: "50%",
+  top: "50%",
+  transform: "translate(-50%,-50%)",
+}
+function App() {
+  return (
+    <Suspense
+      fallback={
+        <Spin size="large" style={loading} />
+      }
+    >
+      <MainLayout />
+    </Suspense >
+  );
+}
 const router = createBrowserRouter([
+
   {
     path: "/",
-    element: (
-      <Suspense
-        fallback={
-          <Spin tip="Loading" size="large">
-            <div className="content" />
-          </Spin>
-        }
-      >
-        <MainLayout />
-      </Suspense>
-    ),
+    element: <App />,
     children: [
       {
         path: "/",
