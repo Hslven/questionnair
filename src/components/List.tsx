@@ -1,41 +1,47 @@
 import { FC, useEffect, useState } from "react";
+import { Divider, Button, Space } from "antd";
+import { EditOutlined, DotChartOutlined, DeleteOutlined, CopyOutlined, StarOutlined } from "@ant-design/icons";
 import style from "./List.module.scss";
 type Props = {
-  title?: string;
-  isPublic?: boolean;
+  _id: number
+  title: string;
+  isStar: boolean;
+  isPublished: boolean;
+  answerCount?: number;
+  createdAt?: string
+  onClickEdit: () => void;
+  onClickStat: () => void;
 };
-
-const questionCard: React.CSSProperties = {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between",
-};
-const Demo: FC<Props> = ({ title = "null", isPublic = false }) => {
+const Demo: FC<Props> = ({ title, isPublished, isStar, _id, onClickEdit, onClickStat }) => {
   // 获取当前日期和时间
   const time = new Date().toLocaleString();
   return (
-    <div className={style.list}>
+    <div className={style.list} >
       <div className={style.header}>
         <span>
-          {title} {time}
+          {/* StarOutlined修改红色 */}
+          <Space>
+            {title}
+            {isStar ? <StarOutlined style={{ color: "red" }} /> : ''}
+          </Space>
         </span>
         <div>
-          {!isPublic ? <p>未发布</p> : <p>已发布</p>}
+          <span style={{ marginRight: '5px' }}>{!isPublished ? "未发布" : <span style={{ color: 'green' }}>已发布</span>}</span>
           <span>答卷:0 {time}</span>
         </div>
       </div>
-      <hr />
-      <div style={questionCard}>
+      <Divider style={{ border: 'none' }} />
+      <div className={style.cardFoot}>
         <div style={{ flex: 6 }}>
-          <button>编辑问卷</button>
-          <span>数据统计</span>
+          <Button type="text" icon={<EditOutlined />} onClick={onClickEdit}>编辑问卷</Button>
+          <Button type="text" icon={<DotChartOutlined />} onClick={onClickStat} disabled={!isPublished}>问卷统计</Button>
         </div>
         <div
           style={{ flex: 1, display: "flex", justifyContent: "space-between" }}
         >
-          <p>标星</p>
-          <p>复制</p>
-          <p>删除</p>
+          <Button type="text" icon={<StarOutlined />} size="small">{!isStar ? "标星" : "取消标星"}</Button>
+          <Button type="text" icon={<CopyOutlined />} size="small">复制</Button>
+          <Button type="text" icon={<DeleteOutlined />} size="small">删除</Button>
         </div>
       </div>
     </div>

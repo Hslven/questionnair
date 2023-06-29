@@ -5,7 +5,7 @@ import Home from "@/pages/Home";
 import Login from "@/pages/Login";
 import Register from "@/pages/Register";
 import Undefined from "@/pages/404";
-import MainLayout from "@/layouts/MainLayout";
+// import MainLayout from "@/layouts/MainLayout";
 import ManageLayout from "@/layouts/ManageLayout";
 import QuestionLayout from "@/layouts/QuestionLayout";
 import List from "@/pages/manage/List";
@@ -13,11 +13,22 @@ import Star from "@/pages/manage/Star";
 import Edit from "@/pages/question/edit";
 import Stat from "@/pages/question/stat";
 // import Transh from "@/pages/manage/Transh";
+const MainLayout = lazy(() => import("@/layouts/MainLayout"));
 const Trash = lazy(() => import("@/pages/manage/Trash"));
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <MainLayout />,
+    element: (
+      <Suspense
+        fallback={
+          <Spin tip="Loading" size="large">
+            <div className="content" />
+          </Spin>
+        }
+      >
+        <MainLayout />
+      </Suspense>
+    ),
     children: [
       {
         path: "/",
@@ -82,4 +93,6 @@ const router = createBrowserRouter([
 ]);
 
 export default router;
-export const HOME_PATH = "/";
+export const HOME_PATHNAME = "/";
+export const MANAGER_INDEX_PATHNAME = "/manager";
+export const REGISTER_PATHNAME = "/register";

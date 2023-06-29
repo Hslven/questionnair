@@ -1,10 +1,9 @@
-
+import { Outlet } from 'react-router-dom'
 const QuestionLaytout = () => {
   return (
     <>
-      <h1>
-        QuestionLaytout
-      </h1>
+      QuestionLaytout
+      <Outlet />
     </>
   )
 }
