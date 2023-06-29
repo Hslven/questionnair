@@ -1,17 +1,9 @@
-import { useNavigate } from 'react-router-dom'
-
+import ListCompoment from "@/components/List";
 const List = () => {
-  const nav = useNavigate()
-  function back() {
-    nav(-1)
-  }
   return (
     <>
-      <h1>
-        List
-      </h1>
-      <button onClick={back}>-1</button>
+      <ListCompoment></ListCompoment>
     </>
-  )
-}
-export default List
+  );
+};
+export default List;

@@ -1,22 +1,35 @@
-import { FC } from 'react'
-import { Outlet } from 'react-router-dom'
-import { Button } from 'antd'
+import { Outlet, useNavigate } from "react-router-dom";
+import { Layout, Button, Space, Typography } from "antd";
+import style from "./Layout.module.scss";
+import Title from "@/components/Title";
+const { Header, Footer, Content } = Layout;
+const MainLayout: React.FC = () => {
+  const navigate = useNavigate();
+  function loginJump() {
+    navigate("/login");
+  }
 
-const MainLayout: FC = () => {
   return (
-    <>
-      <div>
-        MainLayout
-        <Button type="primary">Button</Button>
-      </div>
-      <div>
+    <Layout className={style.mainLayout}>
+      <Header>
+        <Space align="center" className={style.head}>
+          {/* 艾卡问卷 */}
+          <Title style={{ color: "#fff" }}></Title>
+          <div onClick={loginJump} style={{ color: "#0092dc" }}>
+            登录
+          </div>
+        </Space>
+      </Header>
+      <Content>
         <Outlet />
-      </div>
-      <div>
-        MainFooter
-      </div>
+      </Content>
+      <Footer style={{ textAlign: "center" }}>
+        <Typography.Text>
+          艾卡问卷 &nbsp; &copy;2023 - present. Created by <p>lven</p>
+        </Typography.Text>
+      </Footer>
+    </Layout>
+  );
+};
 
-    </>
-  )
-}
-export default MainLayout
+export default MainLayout;

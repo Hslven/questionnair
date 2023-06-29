@@ -7,6 +7,7 @@
 p {
   box-sizing: border-box;
   padding: .2rem;
+  border-radius: 10%;
   font-size: 12px;
   background-color: #1a1a1a;
   color: greenyellow;
@@ -30,11 +31,6 @@ p {
   -webkit-text-size-adjust: 100%;
 
 
-}
-
-#root {
-  margin: 0 auto;
-  padding: 2rem;
 }
 
 a {
