@@ -23,7 +23,7 @@ const MainLayout: React.FC = () => {
       <Content>
         <Outlet />
       </Content>
-      <Footer style={{ textAlign: "center" }}>
+      <Footer style={{ textAlign: "center",borderTop:'1px solid #000' }}>
         <Typography.Text>
           艾卡问卷 &nbsp; &copy;2023 - present. Created by <p>lven</p>
         </Typography.Text>
