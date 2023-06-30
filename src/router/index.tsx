@@ -1,11 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Suspense, lazy } from "react";
-import { Spin } from "antd";
+import { Spin, Space } from "antd";
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";
 import Register from "@/pages/Register";
 import Undefined from "@/pages/404";
-import MainLayout from "@/layouts/MainLayout";
+// import MainLayout from "@/layouts/MainLayout";
 import ManageLayout from "@/layouts/ManageLayout";
 import QuestionLayout from "@/layouts/QuestionLayout";
 import List from "@/pages/manage/List";
@@ -13,11 +13,30 @@ import Star from "@/pages/manage/Star";
 import Edit from "@/pages/question/edit";
 import Stat from "@/pages/question/stat";
 // import Transh from "@/pages/manage/Transh";
+const MainLayout = lazy(() => import("@/layouts/MainLayout"));
 const Trash = lazy(() => import("@/pages/manage/Trash"));
+const loading: React.CSSProperties = {
+  position: "absolute",
+  left: "50%",
+  top: "50%",
+  transform: "translate(-50%,-50%)",
+}
+function App() {
+  return (
+    <Suspense
+      fallback={
+        <Spin size="large" style={loading} />
+      }
+    >
+      <MainLayout />
+    </Suspense >
+  );
+}
 const router = createBrowserRouter([
+
   {
     path: "/",
-    element: <MainLayout />,
+    element: <App />,
     children: [
       {
         path: "/",
@@ -82,4 +101,6 @@ const router = createBrowserRouter([
 ]);
 
 export default router;
-export const HOME_PATH = "/";
+export const HOME_PATHNAME = "/";
+export const MANAGER_INDEX_PATHNAME = "/manager";
+export const REGISTER_PATHNAME = "/register";

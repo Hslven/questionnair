@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { FormOutlined } from "@ant-design/icons";
 import { Typography } from "antd";
+import { HOME_PATHNAME } from "@/router";
 const { Title } = Typography;
 
 interface TitleComponentProps {
@@ -15,7 +16,7 @@ const TitleComponent: React.FC<TitleComponentProps> = (props) => {
   return (
     <>
       <Title level={props.level || 4}>
-        <Link to="/" style={props.style}>
+        <Link to={HOME_PATHNAME} style={props.style}>
           <FormOutlined />
           艾卡问卷
         </Link>

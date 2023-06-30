@@ -1,5 +1,5 @@
 import { Outlet, useNavigate } from "react-router-dom";
-import { Layout, Button, Space, Typography } from "antd";
+import { Layout, Space, Typography } from "antd";
 import style from "./Layout.module.scss";
 import Title from "@/components/Title";
 const { Header, Footer, Content } = Layout;
