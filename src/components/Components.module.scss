@@ -1,0 +1,93 @@
+.list {
+  color: #000;
+  width: 100%;
+  min-height: 3.75rem;
+  padding: 0.625rem;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  margin: 15px 0;
+  .header {
+    display: flex;
+    justify-content: space-between;
+  }
+  .cardFoot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &:hover {
+    box-shadow: 0 0 0.625rem 0 rgba(0, 0, 0, 0.2);
+  }
+}
+
+.search {
+  position: relative;
+  // &:active{
+  //   transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+  //   transform: scale(0.95);
+  // }
+
+  .input {
+    width: 100%;
+    max-width: 220px;
+    height: 35px;
+    padding: 12px;
+    padding-right: 63px;
+    border-radius: 12px;
+    border: 1.5px solid lightgrey;
+    outline: none;
+    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+    box-shadow: 0px 0px 20px -18px;
+    background-color: #f5f5f5;
+    color: #000;
+    box-sizing: border-box;
+  }
+
+  .input:active {
+    transform: scale(0.95);
+    & + .searchIcon {
+      transform: scale(0.95);
+    }
+  }
+
+  .input:focus  {
+    border: 2px solid grey;
+    & + .searchIcon{
+      border-top: 2px solid grey;
+      border-right: 2px solid grey;
+      border-bottom: 2px solid grey;
+    }
+  }
+
+  .clearIcon {
+    position: absolute;
+    right: 35px;
+    top: 10px;
+    color: #bfbfbf;
+    transition: all 0.3s;
+    &:hover {
+      color: #8c8c8c;
+      cursor: pointer;
+    }
+    &:active {
+      transform: scale(0.65);
+    }
+  }
+
+  .searchIcon {
+    position: absolute;
+    height: 35px;
+    right: 0;
+    border-radius: 12px;
+    margin-top: 0px;
+    background-color: #f5f5f5;
+    border: 1.5px solid lightgrey;
+    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+    // 左上角和左下角去掉圆角
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    box-sizing: border-box;
+
+  }
+}

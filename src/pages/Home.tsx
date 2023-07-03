@@ -1,6 +1,8 @@
 import style from './Home.module.scss'
 import { useNavigate } from 'react-router-dom'
+import { ChangeEvent, useState } from 'react'
 import { Typography, Divider, Button } from 'antd'
+
 const Home: React.FC = () => {
   const nav = useNavigate()
   function manageJump() {
@@ -13,6 +15,7 @@ const Home: React.FC = () => {
       <Typography.Text >已累计创建问卷1090,发布问卷100份,收到答卷10000份</Typography.Text>
       <Divider style={{ border: 'none' }} />
       <Button type='primary' size="large" onClick={manageJump}>开始使用</Button>
+      
     </div>
   )
 

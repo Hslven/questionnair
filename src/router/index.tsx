@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import { Suspense, lazy } from "react";
+import { ChangeEvent, Suspense, lazy } from "react";
 import { Spin, Space } from "antd";
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";

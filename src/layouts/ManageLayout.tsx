@@ -7,7 +7,8 @@ import {
   AlignLeftOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
-import style from './Layout.module.scss'
+import Search from '@/components/Search'
+
 const manageSide: React.CSSProperties = {
   backgroundColor: "rgba(0,0,0,0)",
   // 居中
@@ -76,7 +77,7 @@ const ManageLayout = () => {
       <Layout.Content style={{ padding: "20px 20px" }}>
         <div style={manageContentTitle}>
           <span>{headText}</span>
-          <input placeholder="Searth the internet..." type="text" name="text" className={style.input} />
+          <Search></Search>
         </div>
         <Outlet></Outlet>
       </Layout.Content>
