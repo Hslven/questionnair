@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { ChangeEvent, useState } from 'react'
 import { Typography, Divider, Button } from 'antd'
 
+
 const Home: React.FC = () => {
   const nav = useNavigate()
   function manageJump() {

@@ -8,3 +8,12 @@
   // 渐变色左边#2baee4到右边#00fbc0
   background: linear-gradient(90deg, #2baee6 0%, #20ced8 50%, #00fbc0 100%);
 }
+
+.login {
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
