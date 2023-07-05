@@ -40,7 +40,7 @@ const Head: React.FC<Props> = ({ title, isStar, isPublished }) => {
         </Space>
       </span>
       <div>
-        <span style={{ marginRight: "5px" }}>
+        <span style={{ marginRight: "0.3125rem" }}>
           {!isPublished ? <Tag>未发布</Tag> : <Tag color="#87d068">已发布</Tag>}
         </span>
         <span>答卷:0 {time}</span>

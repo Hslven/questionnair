@@ -11,7 +11,7 @@ const MainLayout: React.FC = () => {
 
   return (
     <Layout className={style.mainLayout}>
-      <Header>
+      <Header style={{zIndex:9,overflow:'hidden'}}>
         <Space align="center" className={style.head}>
           {/* 艾卡问卷 */}
           <Title style={{ color: "#fff" }}></Title>
@@ -23,7 +23,7 @@ const MainLayout: React.FC = () => {
       <Content>
         <Outlet />
       </Content>
-      <Footer style={{ textAlign: "center" }}>
+      <Footer style={{ textAlign: "center",zIndex:9}}>
         <Typography.Text>
           艾卡问卷 &nbsp; &copy;2023 - present. Created by <p>lven</p>
         </Typography.Text>

@@ -14,14 +14,14 @@ const manageSide: React.CSSProperties = {
   // 居中
   display: "flex",
   justifyContent: "center",
-  padding: "20px 0",
+  padding: "1.25rem 0",
 };
 const manageContentTitle: React.CSSProperties = {
-  padding: '0 10px',
+  padding: '0 0.625rem',
   color: '#000',
   display: "flex",
   justifyContent: "space-between",
-  marginBottom: "20px",
+  marginBottom: "1.25rem",
 }
 const ManageLayout = () => {
   const { pathname } = useLocation();
@@ -50,7 +50,7 @@ const ManageLayout = () => {
           <Button type="primary" icon={<PlusOutlined />}>
             新建问卷
           </Button>
-          <Divider style={{ border: "none", margin: "15px 0" }} />
+          <Divider style={{ border: "none", margin: "0.9375rem 0" }} />
           <Button
             onClick={() => jump("list")}
             type={pathname.includes("list") ? "default" : "text"}
@@ -74,7 +74,7 @@ const ManageLayout = () => {
           </Button>
         </Space>
       </Layout.Sider>
-      <Layout.Content style={{ padding: "20px 20px" }}>
+      <Layout.Content style={{ padding: "1.25rem 1.25rem" }}>
         <div style={manageContentTitle}>
           <span>{headText}</span>
           <Search></Search>
