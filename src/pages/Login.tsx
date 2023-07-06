@@ -10,19 +10,16 @@ import {
 import { UserAddOutlined } from "@ant-design/icons";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-const { Title } = Typography;
 import style from "./Home.module.scss";
 const Login = () => {
-  // const [form] = Form.useForm();
-  // useEffect(() => {
-  // 密码还原
   return (
     <div className={style.login}>
-      <Space>
-        <Title>
+      <Space >
+
+        <Typography.Title>
           <UserAddOutlined />
-        </Title>
-        <Title>User Login</Title>
+        </Typography.Title>
+        <Typography.Title>User Login</Typography.Title>
       </Space>
       <div>
         <FormInput />
@@ -32,10 +29,22 @@ const Login = () => {
 };
 
 const FormInput = () => {
+  // password replay
+  const [form] = Form.useForm();
+  useEffect(() => {
+    if (localStorage.getItem('USER_INFO')) {
+      const { username, passwordBase64 } = JSON.parse(localStorage.getItem('USER_INFO') || '{}')
+      // console.log(username, passwordBase64)
+      form.setFieldsValue({ username, password: atob(passwordBase64), remember: true })
+      // console.log(form.getFieldValue("remember"))
+    }
+  })
+
   // form submission finish
   const onFinish = (values: any) => {
     // console.log("Success:", values);
     const { username, password, remember } = values;
+    // if remember,saved
     if (remember) {
       // 密码加密
       const passwordBase64 = btoa(password);
@@ -43,26 +52,18 @@ const FormInput = () => {
         "USER_INFO",
         JSON.stringify({ username, passwordBase64 })
       );
+    } else {
+      // else remove
+      localStorage.removeItem("USER_INFO")
     }
-    onFinishFailed({},{content:"登录成功",type:"success"});
+    onFinishFailed({}, { content: "Login success", type: "success" });
   };
 
-  /*   const [messageApi, contextHolder] = message.useMessage();
-  const onFinishFailed = (
-    _errorInfo?: object,
-    messgae?: { content: string,type: string }
-    ) => {
-      if(message)return{
-        
-      }
-      console.log("Failed:", _errorInfo);
-    };
-    */
   // form submission failed
   type NoticeType = "info" | "success" | "error" | "warning" | "loading";
   const [messageApi, contextHolder] = message.useMessage();
   const onFinishFailed = (
-    _errorInfo?: object,
+    _errorInfo?: any,
     messgae?: { content: string; type: NoticeType }
   ) => {
     if (messgae) {
@@ -71,15 +72,24 @@ const FormInput = () => {
         content: messgae.content || "",
       });
     }
-    console.log("Failed:", _errorInfo);
+
+    if (_errorInfo.errorFields) {
+      return messageApi.open({
+        type: "error",
+        content: _errorInfo?.errorFields[0].errors[0],
+      });
+    }
   };
+
+
   return (
     <Form
       name="basic"
+      form={form}
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 16 }}
       style={{ maxWidth: 1200 }}
-      initialValues={{ remember: true }}
+      initialValues={{ remember: false }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
       autoComplete="off"
@@ -104,18 +114,19 @@ const FormInput = () => {
       <Form.Item
         name="remember"
         valuePropName="checked"
+
         wrapperCol={{ offset: 8, span: 16 }}
       >
-        <Checkbox style={{ userSelect: "none" }}>Remember me</Checkbox>
+        <Checkbox value={false} style={{ userSelect: "none" }} >Remember me</Checkbox>
       </Form.Item>
 
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-        <Space>
+        <Space size={20}>
           <Button type="primary" htmlType="submit">
             Submit
           </Button>
-          <Link to="/register" style={{ fontSize: "12px" }}>
-            Register new user
+          <Link to="/register" style={{ fontSize: "14px" }}>
+            register now!
           </Link>
         </Space>
       </Form.Item>

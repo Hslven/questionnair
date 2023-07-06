@@ -1,5 +1,5 @@
 import { Outlet, useNavigate } from "react-router-dom";
-import { Layout, Space, Typography } from "antd";
+import { Layout, Space, Typography, Button } from "antd";
 import style from "./Layout.module.scss";
 import Title from "@/components/Title";
 const { Header, Footer, Content } = Layout;
@@ -16,7 +16,7 @@ const MainLayout: React.FC = () => {
           {/* 艾卡问卷 */}
           <Title style={{ color: "#fff" }}></Title>
           <div onClick={loginJump} style={{ color: "#0092dc" }}>
-            登录
+            <Button type="link" >登录</Button>
           </div>
         </Space>
       </Header>
