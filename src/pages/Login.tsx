@@ -15,7 +15,6 @@ const Login = () => {
   return (
     <div className={style.login}>
       <Space >
-
         <Typography.Title>
           <UserAddOutlined />
         </Typography.Title>
@@ -34,9 +33,7 @@ const FormInput = () => {
   useEffect(() => {
     if (localStorage.getItem('USER_INFO')) {
       const { username, passwordBase64 } = JSON.parse(localStorage.getItem('USER_INFO') || '{}')
-      // console.log(username, passwordBase64)
       form.setFieldsValue({ username, password: atob(passwordBase64), remember: true })
-      // console.log(form.getFieldValue("remember"))
     }
   })
 
@@ -80,8 +77,6 @@ const FormInput = () => {
       });
     }
   };
-
-
   return (
     <Form
       name="basic"
