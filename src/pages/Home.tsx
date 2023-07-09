@@ -1,14 +1,10 @@
 import style from "./Home.module.scss";
 import { useNavigate } from "react-router-dom";
 import { Typography, Divider, Button } from "antd";
-import login from "@/api/default";
 const Home: React.FC = () => {
   const nav = useNavigate();
   function manageJump() {
-    // nav('/manage/list')
-    login.test1({name:'123'}).then((res) => {
-      console.log(res);
-    });
+    nav('/manage/list')
   }
 
   return (
