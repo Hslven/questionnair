@@ -11,14 +11,14 @@ const arr = [
       return {
         error: 0,
         data: {
-          id: Random.id(),
+          id: 123
         },
       };
     }
   },
   // Get a single questionnaire
   {
-    url: '/mock/api/question/:id',
+    url: /\/mock\/api\/question\/*/,
     methods: "get",
     response: () => {
       return{

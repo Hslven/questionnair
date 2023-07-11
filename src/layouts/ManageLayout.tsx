@@ -9,6 +9,7 @@ import {
 } from "@ant-design/icons";
 import Search from '@/components/Search'
 import questionAPI from '@/api/questionAPI';
+import { useRequest } from 'ahooks'
 
 const manageSide: React.CSSProperties = {
   backgroundColor: 'rgba(0,0,0,0)',
@@ -46,17 +47,27 @@ const ManageLayout = () => {
     }
   }
   // Click the new questionnaire jump to the new questionnaire editing page
-  const [isDisabled, setIsDisabled] = useState(false)
-  function handleToNewQuestionnaire() {
-    setIsDisabled(true)
-    questionAPI.newQuestionnaire().then(res => {
+  // const [isDisabled, setIsDisabled] = useState(false)
+  // function handleToNewQuestionnaire() {
+  //   setIsDisabled(true)
+  //   questionAPI.newQuestionnaire().then(res => {
+  //     const { id } = res.data
+  //     if (res.error === 0) {
+  //       nav(`/question/edit/${id}`)
+  //     }
+  //     setIsDisabled(false)
+  //   })
+  // }
+  const { loading:isDisabled, run: handleToNewQuestionnaire} = useRequest(questionAPI.newQuestionnaire, {
+    manual: true,
+    onSuccess: (res) => {
+      console.log(res)
       const { id } = res.data
       if (res.error === 0) {
         nav(`/question/edit/${id}`)
       }
-      setIsDisabled(false)
-    })
-  }
+    }
+  })
   return (
     <Layout style={{ height: '100%' }}>
       <Layout.Sider width={250} style={manageSide}>

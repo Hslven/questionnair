@@ -6,5 +6,6 @@ import { post, get } from "@/utils/request";
 
 export default {
   // Create questionnaire
-  newQuestionnaire: (params: object = {}) => post({ url: "/api/question", params }),
+  newQuestionnaire: () => post({ url: "/api/question"}),
+  singleQuestionnaire: (params: object = {}) => get({ url: "/api/question", params }),
 };
