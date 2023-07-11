@@ -1,10 +1,10 @@
-import { Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router-dom';
 const QuestionLaytout = () => {
   return (
     <>
       QuestionLaytout
       <Outlet />
     </>
-  )
-}
-export default QuestionLaytout
+  );
+};
+export default QuestionLaytout;

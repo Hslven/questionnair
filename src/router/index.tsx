@@ -1,26 +1,26 @@
-import { createBrowserRouter } from "react-router-dom";
-import {  Suspense, lazy } from "react";
-import { Spin } from "antd";
-import Home from "@/pages/Home";
-import Login from "@/pages/Login";
-import Register from "@/pages/Register";
-import Undefined from "@/pages/404";
+import { createBrowserRouter } from 'react-router-dom';
+import { Suspense, lazy } from 'react';
+import { Spin } from 'antd';
+import Home from '@/pages/Home';
+import Login from '@/pages/Login';
+import Register from '@/pages/Register';
+import Undefined from '@/pages/404';
 // import MainLayout from "@/layouts/MainLayout";
-import ManageLayout from "@/layouts/ManageLayout";
-import QuestionLayout from "@/layouts/QuestionLayout";
-import List from "@/pages/manage/List";
-import Star from "@/pages/manage/Star";
-import Edit from "@/pages/question/edit";
-import Stat from "@/pages/question/stat";
+import ManageLayout from '@/layouts/ManageLayout';
+import QuestionLayout from '@/layouts/QuestionLayout';
+import List from '@/pages/manage/List';
+import Star from '@/pages/manage/Star';
+import Edit from '@/pages/question/edit';
+import Stat from '@/pages/question/stat';
 // import Transh from "@/pages/manage/Transh";
-const MainLayout = lazy(() => import("@/layouts/MainLayout"));
-const Trash = lazy(() => import("@/pages/manage/Trash"));
+const MainLayout = lazy(() => import('@/layouts/MainLayout'));
+const Trash = lazy(() => import('@/pages/manage/Trash'));
 const loading: React.CSSProperties = {
-  position: "absolute",
-  left: "50%",
-  top: "50%",
-  transform: "translate(-50%,-50%)",
-}
+  position: 'absolute',
+  left: '50%',
+  top: '50%',
+  transform: 'translate(-50%,-50%)',
+};
 function App() {
   return (
     <Suspense
@@ -35,35 +35,35 @@ function App() {
 const router = createBrowserRouter([
 
   {
-    path: "/",
+    path: '/',
     element: <App />,
     children: [
       {
-        path: "/",
+        path: '/',
         element: <Home />,
       },
       {
-        path: "login",
+        path: 'login',
         element: <Login />,
       },
       {
-        path: "register",
+        path: 'register',
         element: <Register />,
       },
       {
-        path: "manage",
+        path: 'manage',
         element: <ManageLayout />,
         children: [
           {
-            path: "list",
+            path: 'list',
             element: <List />,
           },
           {
-            path: "star",
+            path: 'star',
             element: <Star />,
           },
           {
-            path: "trash",
+            path: 'trash',
             element: (
               <Suspense
                 fallback={
@@ -79,21 +79,21 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: "*",
+        path: '*',
         element: <Undefined />,
       },
     ],
   },
   {
-    path: "question",
+    path: 'question',
     element: <QuestionLayout />,
     children: [
       {
-        path: "edit/:id",
+        path: 'edit/:id',
         element: <Edit />,
       },
       {
-        path: "stat/:id",
+        path: 'stat/:id',
         element: <Stat />,
       },
     ],
@@ -101,6 +101,6 @@ const router = createBrowserRouter([
 ]);
 
 export default router;
-export const HOME_PATHNAME = "/";
-export const MANAGER_INDEX_PATHNAME = "/manager";
-export const REGISTER_PATHNAME = "/register";
+export const HOME_PATHNAME = '/';
+export const MANAGER_INDEX_PATHNAME = '/manager';
+export const REGISTER_PATHNAME = '/register';

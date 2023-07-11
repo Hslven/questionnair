@@ -1,34 +1,34 @@
-import { Outlet, useNavigate } from "react-router-dom";
-import { Layout, Space, Typography, Button } from "antd";
-import style from "./Layout.module.scss";
-import Title from "@/components/Title";
+import { Outlet, useNavigate } from 'react-router-dom';
+import { Layout, Space, Typography, Button } from 'antd';
+import style from './Layout.module.scss';
+import Title from '@/components/Title';
 const { Header, Footer, Content } = Layout;
 const MainLayout: React.FC = () => {
   const navigate = useNavigate();
   function loginJump() {
-    navigate("/login");
+    navigate('/login');
   }
 
   return (
     <Layout className={style.mainLayout}>
-      <Header style={{ zIndex: 9, overflow: "hidden" }}>
+      <Header style={{ zIndex: 9, overflow: 'hidden' }}>
         <Space align="center" className={style.head}>
           {/* 艾卡问卷 */}
-          <Title style={{ color: "#fff" }}></Title>
-          <div onClick={loginJump} style={{ color: "#0092dc" }}>
+          <Title style={{ color: '#fff' }} />
+          <div onClick={loginJump} style={{ color: '#0092dc' }}>
             <Button type="link" >登录</Button>
           </div>
         </Space>
       </Header>
-      <Content style={{ minHeight: "599px" }}>
+      <Content style={{ minHeight: '599px' }}>
         <Outlet />
       </Content>
       <Footer
         style={{
-          position: "fixed",
+          position: 'fixed',
           bottom: 0,
-          width: "100%",
-          textAlign: "center",
+          width: '100%',
+          textAlign: 'center',
           zIndex: 9,
         }}
       >

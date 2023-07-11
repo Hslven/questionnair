@@ -1,5 +1,5 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 // 引入等比适配插件
 // import px2rem from 'postcss-px2rem'
 
@@ -15,7 +15,7 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      "@": "/src",
+      '@': '/src',
     },
   },
   build: {
@@ -28,14 +28,14 @@ export default defineConfig({
           },
           generateBundle() {
             console.log('构建完成！');
-          }
-        }
-      ]
-    }
-  }
+          },
+        },
+      ],
+    },
+  },
   // css: {
   //   postcss: {
   //     plugins: [postcss]
   //   }
   // },
-})
+});

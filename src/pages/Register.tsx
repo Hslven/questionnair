@@ -5,11 +5,11 @@ import {
   Form,
   Input,
   message,
-} from "antd";
-import { UserAddOutlined } from "@ant-design/icons";
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
-import style from "./Home.module.scss";
+} from 'antd';
+import { UserAddOutlined } from '@ant-design/icons';
+import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import style from './Home.module.scss';
 
 const Register = () => {
   return (
@@ -25,19 +25,19 @@ const Register = () => {
       </div>
     </div>
   );
-}
+};
 
 const FormInput = () => {
   // password replay
   const [form] = Form.useForm();
   useEffect(() => {
     if (localStorage.getItem('USER_INFO')) {
-      const { username, passwordBase64 } = JSON.parse(localStorage.getItem('USER_INFO') || '{}')
+      const { username, passwordBase64 } = JSON.parse(localStorage.getItem('USER_INFO') || '{}');
       // console.log(username, passwordBase64)
-      form.setFieldsValue({ username, password: atob(passwordBase64), remember: true })
+      form.setFieldsValue({ username, password: atob(passwordBase64), remember: true });
       // console.log(form.getFieldValue("remember"))
     }
-  })
+  });
 
   // form submission finish
   const onFinish = (values: any) => {
@@ -48,33 +48,33 @@ const FormInput = () => {
       // 密码加密
       const passwordBase64 = btoa(password);
       localStorage.setItem(
-        "USER_INFO",
-        JSON.stringify({ username, passwordBase64 })
+        'USER_INFO',
+        JSON.stringify({ username, passwordBase64 }),
       );
     } else {
       // else remove
-      localStorage.removeItem("USER_INFO")
+      localStorage.removeItem('USER_INFO');
     }
-    onFinishFailed({}, { content: "Register success", type: "success" });
+    onFinishFailed({}, { content: 'Register success', type: 'success' });
   };
 
   // form submission failed
-  type NoticeType = "info" | "success" | "error" | "warning" | "loading";
+  type NoticeType = 'info' | 'success' | 'error' | 'warning' | 'loading';
   const [messageApi, contextHolder] = message.useMessage();
   const onFinishFailed = (
     _errorInfo?: any,
-    messgae?: { content: string; type: NoticeType }
+    messgae?: { content: string; type: NoticeType },
   ) => {
     if (messgae) {
       return messageApi.open({
-        type: messgae.type || "error",
-        content: messgae.content || "",
+        type: messgae.type || 'error',
+        content: messgae.content || '',
       });
     }
 
     if (_errorInfo.errorFields) {
       return messageApi.open({
-        type: "error",
+        type: 'error',
         content: _errorInfo?.errorFields[0].errors[0],
       });
     }
@@ -87,7 +87,7 @@ const FormInput = () => {
       form={form}
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 20 }}
-      style={{ width: "400px" }}
+      style={{ width: '400px' }}
       initialValues={{ remember: false }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
@@ -97,7 +97,7 @@ const FormInput = () => {
       <Form.Item
         label="Username"
         name="username"
-        rules={[{ required: true, message: "Please input your username!" }]}
+        rules={[{ required: true, message: 'Please input your username!' }]}
       >
         <Input />
       </Form.Item>
@@ -106,7 +106,7 @@ const FormInput = () => {
         label="Password"
         name="password"
         hasFeedback
-        rules={[{ required: true, message: "Please input your password!" }]}
+        rules={[{ required: true, message: 'Please input your password!' }]}
       >
         <Input.Password />
       </Form.Item>
@@ -114,7 +114,7 @@ const FormInput = () => {
       <Form.Item
         label="Confirm Password"
         name="comfirmPassword"
-        dependencies={["password"]}
+        dependencies={['password']}
         hasFeedback
         rules={[
           {
@@ -123,7 +123,7 @@ const FormInput = () => {
           },
           ({ getFieldValue }) => ({
             validator(_, value) {
-              console.log(getFieldValue('password'), value)
+              console.log(getFieldValue('password'), value);
 
               if (!value || getFieldValue('password') === value) {
                 return Promise.resolve();
@@ -152,7 +152,7 @@ const FormInput = () => {
           <Button type="primary" htmlType="submit">
             Register
           </Button>
-          <Link to="/login" style={{ fontSize: "14px" }}>
+          <Link to="/login" style={{ fontSize: '14px' }}>
             I have an account!
           </Link>
         </Space>
@@ -160,4 +160,4 @@ const FormInput = () => {
     </Form>
   );
 };
-export default Register
+export default Register;

@@ -1,6 +1,6 @@
-import ListCompoment from "@/components/List";
-import { useNavigate } from "react-router-dom";
-import { Pagination } from "antd";
+import ListCompoment from '@/components/List';
+import { useNavigate } from 'react-router-dom';
+import { Pagination } from 'antd';
 interface Item {
   id: number;
   isStar: boolean;
@@ -10,16 +10,16 @@ interface Item {
 const List = () => {
   // const json: Array<Item>
   const json: Item[] = [
-    { id: 1, title: "问卷1", isStar: false, isPublished: false },
-    { id: 2, title: "问卷2", isStar: true, isPublished: true },
-    { id: 3, title: "问卷3", isStar: false, isPublished: false },
+    { id: 1, title: '问卷1', isStar: false, isPublished: false },
+    { id: 2, title: '问卷2', isStar: true, isPublished: true },
+    { id: 3, title: '问卷3', isStar: false, isPublished: false },
   ];
   const nav = useNavigate();
   function editJump(id: number) {
-    nav("/question/edit/" + id);
+    nav(`/question/edit/${id}`);
   }
   function statJump(id: number) {
-    nav("/question/stat/" + id);
+    nav(`/question/stat/${id}`);
   }
 
   return (
@@ -38,7 +38,7 @@ const List = () => {
             />
           );
         })}
-      <Pagination defaultCurrent={1} total={50} style={{textAlign:'center'}} />
+      <Pagination defaultCurrent={1} total={50} style={{ textAlign: 'center' }} />
     </>
   );
 };

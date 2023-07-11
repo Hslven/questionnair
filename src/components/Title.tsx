@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
-import { FormOutlined } from "@ant-design/icons";
-import { Typography } from "antd";
-import { HOME_PATHNAME } from "@/router";
+import { Link } from 'react-router-dom';
+import { FormOutlined } from '@ant-design/icons';
+import { Typography } from 'antd';
+import { HOME_PATHNAME } from '@/router';
 const { Title } = Typography;
 
 interface TitleComponentProps {

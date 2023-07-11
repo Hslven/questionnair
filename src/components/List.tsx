@@ -1,4 +1,4 @@
-import { Divider, Button, Space, Tag, message, Modal, Pagination } from "antd"; 
+import { Divider, Button, Space, Tag, message, Modal } from 'antd';
 import { useState } from "react";
 import {
   EditOutlined,
@@ -6,8 +6,8 @@ import {
   DeleteOutlined,
   CopyOutlined,
   StarOutlined,
-} from "@ant-design/icons";
-import style from "./Components.module.scss";
+} from '@ant-design/icons';
+import style from './Components.module.scss';
 type Props = {
   _id: number;
   title: string;
@@ -22,9 +22,9 @@ const Demo: React.FC<Props> = (props) => {
   // 获取当前日期和时间
   return (
     <div className={style.list}>
-      <Head {...props}></Head>
-      <Divider style={{ border: "none" }} />
-      <Footer {...props}></Footer>
+      <Head {...props} />
+      <Divider style={{ border: 'none' }} />
+      <Footer {...props} />
     </div>
   );
 };
@@ -36,11 +36,11 @@ const Head: React.FC<Props> = ({ title, isStar, isPublished }) => {
       <span>
         <Space>
           {title}
-          {isStar ? <StarOutlined style={{ color: "red" }} /> : ""}
+          {isStar ? <StarOutlined style={{ color: 'red' }} /> : ''}
         </Space>
       </span>
       <div>
-        <span style={{ marginRight: "0.3125rem" }}>
+        <span style={{ marginRight: '0.3125rem' }}>
           {!isPublished ? <Tag>未发布</Tag> : <Tag color="#87d068">已发布</Tag>}
         </span>
         <span>答卷:0 {time}</span>
@@ -60,8 +60,8 @@ const Footer = ({ onClickEdit, onClickStat, isPublished, isStar }: Props) => {
   };
   const success = () => {
     messageApi.open({
-      type: "success",
-      content: "复制成功",
+      type: 'success',
+      content: '复制成功',
       duration: 3,
     });
   };
@@ -81,10 +81,10 @@ const Footer = ({ onClickEdit, onClickStat, isPublished, isStar }: Props) => {
         </Button>
       </div>
       <div
-        style={{ flex: 1, display: "flex", justifyContent: "space-between" }}
+        style={{ flex: 1, display: 'flex', justifyContent: 'space-between' }}
       >
         <Button type="text" icon={<StarOutlined />} size="small">
-          {!isStar ? "标星" : "取消标星"}
+          {!isStar ? '标星' : '取消标星'}
         </Button>
         <Button
           onClick={success}

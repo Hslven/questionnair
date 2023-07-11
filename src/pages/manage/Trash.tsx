@@ -6,6 +6,6 @@ const Trash = () => {
         Trash
       </h1>
     </>
-  )
-}
-export default Trash
+  );
+};
+export default Trash;

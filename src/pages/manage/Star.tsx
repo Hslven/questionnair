@@ -6,6 +6,6 @@ const Star = () => {
         Star
       </h1>
     </>
-  )
-}
-export default Star
+  );
+};
+export default Star;

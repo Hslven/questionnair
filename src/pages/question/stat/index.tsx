@@ -6,6 +6,6 @@ const Stat = () => {
         Stat
       </h1>
     </>
-  )
-}
-export default Stat
+  );
+};
+export default Stat;

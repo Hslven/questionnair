@@ -5,7 +5,7 @@
 
 p {
   box-sizing: border-box;
-  padding: .2rem;
+  padding: 0.2rem;
   border-radius: 10%;
   font-size: 12px;
   background-color: #1a1a1a;
@@ -24,7 +24,7 @@ p {
   background-color: #242424;
 
   font-synthesis: none;
-  text-rendering: optimizeLegibility;
+  text-rendering: optimizelegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
@@ -54,7 +54,7 @@ body {
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
-    background-color: #ffffff;
+    background-color: #fff;
   }
 
   a:hover {

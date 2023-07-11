@@ -6,11 +6,11 @@ import {
   Form,
   Input,
   message,
-} from "antd";
-import { UserAddOutlined } from "@ant-design/icons";
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
-import style from "./Home.module.scss";
+} from 'antd';
+import { UserAddOutlined } from '@ant-design/icons';
+import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import style from './Home.module.scss';
 const Login = () => {
   return (
     <div className={style.login}>
@@ -32,10 +32,10 @@ const FormInput = () => {
   const [form] = Form.useForm();
   useEffect(() => {
     if (localStorage.getItem('USER_INFO')) {
-      const { username, passwordBase64 } = JSON.parse(localStorage.getItem('USER_INFO') || '{}')
-      form.setFieldsValue({ username, password: atob(passwordBase64), remember: true })
+      const { username, passwordBase64 } = JSON.parse(localStorage.getItem('USER_INFO') || '{}');
+      form.setFieldsValue({ username, password: atob(passwordBase64), remember: true });
     }
-  })
+  });
 
   // form submission finish
   const onFinish = (values: any) => {
@@ -46,33 +46,33 @@ const FormInput = () => {
       // 密码加密
       const passwordBase64 = btoa(password);
       localStorage.setItem(
-        "USER_INFO",
-        JSON.stringify({ username, passwordBase64 })
+        'USER_INFO',
+        JSON.stringify({ username, passwordBase64 }),
       );
     } else {
       // else remove
-      localStorage.removeItem("USER_INFO")
+      localStorage.removeItem('USER_INFO');
     }
-    onFinishFailed({}, { content: "Login success", type: "success" });
+    onFinishFailed({}, { content: 'Login success', type: 'success' });
   };
 
   // form submission failed
-  type NoticeType = "info" | "success" | "error" | "warning" | "loading";
+  type NoticeType = 'info' | 'success' | 'error' | 'warning' | 'loading';
   const [messageApi, contextHolder] = message.useMessage();
   const onFinishFailed = (
     _errorInfo?: any,
-    messgae?: { content: string; type: NoticeType }
+    messgae?: { content: string; type: NoticeType },
   ) => {
     if (messgae) {
       return messageApi.open({
-        type: messgae.type || "error",
-        content: messgae.content || "",
+        type: messgae.type || 'error',
+        content: messgae.content || '',
       });
     }
 
     if (_errorInfo.errorFields) {
       return messageApi.open({
-        type: "error",
+        type: 'error',
         content: _errorInfo?.errorFields[0].errors[0],
       });
     }
@@ -93,7 +93,7 @@ const FormInput = () => {
       <Form.Item
         label="Username"
         name="username"
-        rules={[{ required: true, message: "Please input your username!" }]}
+        rules={[{ required: true, message: 'Please input your username!' }]}
       >
         <Input />
       </Form.Item>
@@ -101,7 +101,7 @@ const FormInput = () => {
       <Form.Item
         label="Password"
         name="password"
-        rules={[{ required: true, message: "Please input your password!" }]}
+        rules={[{ required: true, message: 'Please input your password!' }]}
       >
         <Input.Password />
       </Form.Item>
@@ -112,7 +112,7 @@ const FormInput = () => {
 
         wrapperCol={{ offset: 8, span: 16 }}
       >
-        <Checkbox value={false} style={{ userSelect: "none" }} >Remember me</Checkbox>
+        <Checkbox value={false} style={{ userSelect: 'none' }} >Remember me</Checkbox>
       </Form.Item>
 
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
@@ -120,7 +120,7 @@ const FormInput = () => {
           <Button type="primary" htmlType="submit">
             Submit
           </Button>
-          <Link to="/register" style={{ fontSize: "14px" }}>
+          <Link to="/register" style={{ fontSize: '14px' }}>
             register now!
           </Link>
         </Space>

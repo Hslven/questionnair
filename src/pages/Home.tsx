@@ -1,12 +1,12 @@
-import style from "./Home.module.scss";
-import { useNavigate } from "react-router-dom";
-import { Typography, Divider, Button } from "antd";
-import login from "@/api/default";
+import style from './Home.module.scss';
+import { useNavigate } from 'react-router-dom';
+import { Typography, Divider, Button } from 'antd';
+import login from '@/api/default';
 const Home: React.FC = () => {
   const nav = useNavigate();
   function manageJump() {
     // nav('/manage/list')
-    login.test1({name:'123'}).then((res) => {
+    login.test1({ name: '123' }).then((res) => {
       console.log(res);
     });
   }
@@ -17,7 +17,7 @@ const Home: React.FC = () => {
       <Typography.Text>
         已累计创建问卷1090,发布问卷100份,收到答卷10000份
       </Typography.Text>
-      <Divider style={{ border: "none" }} />
+      <Divider style={{ border: 'none' }} />
       <Button type="primary" size="large" onClick={manageJump}>
         开始使用
       </Button>

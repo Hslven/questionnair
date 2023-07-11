@@ -1,4 +1,4 @@
-import { useLocation, useParams, useSearchParams } from 'react-router-dom'
+import { useLocation, useParams, useSearchParams } from 'react-router-dom';
 const Edit = () => {
   // console.log(useLocation(), 'useLocation')
   // console.log(useParams(), 'useParams')
@@ -12,6 +12,6 @@ const Edit = () => {
         Edit
       </h1>
     </>
-  )
-}
-export default Edit
+  );
+};
+export default Edit;
