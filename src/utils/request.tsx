@@ -1,16 +1,18 @@
-import axios from 'axios';
-import { Spin, message } from 'antd';
+import axios from "axios";
+import { message } from "antd";
 const $axios = axios.create({
+  // 开发环境下使用
   baseURL: import.meta.env.VITE_API_URL,
-  // baseURL: 'http://localhost:5173',
+  // node环境下使用
+  // baseURL: 'http://localhost:3001', 
   timeout: 100000,
   headers: { 'Content-Type': 'application/json', 'request-ajax': true },
 });
 
-const request = function (query: object, _loadtip?: boolean) {
+const request = function (query: object) {
   return $axios.request(query)
     .then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
       return Promise.resolve(res.data);
     })
     .catch((e) => {
@@ -19,15 +21,17 @@ const request = function (query: object, _loadtip?: boolean) {
     });
 };
 
+
+type requestProps = {
+  url: string;
+  params?: object;
+  data?: object;
+}
 const post = function ({
   url,
   params,
   data,
-}: {
-  url: string;
-  params?: object;
-  data?: object;
-}) {
+}: requestProps) {
   const query = {
     url: url,
     method: 'post',
@@ -38,5 +42,21 @@ const post = function ({
   };
   return request(query);
 };
+
+const get = function ({
+  url,
+  params,
+  data,
+}: requestProps) {
+  const query = {
+    url: url,
+    method: "get",
+    withCredentials: true,
+    params,
+    data,
+    headers: { "Content-Type": "application/json", "request-ajax": true },
+  };
+  return request(query);
+};
 // export default request;
-export { post };
+export { post, get };
