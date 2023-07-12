@@ -1,8 +1,9 @@
 import ListCompoment from '@/components/List';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useSearchParams } from 'react-router-dom';
 import { Pagination } from 'antd';
 import questionAPI from '@/api/questionAPI'
 import { useRequest } from 'ahooks'
+import {useEffect,useState}from 'react'
 interface Item {
   id: number;
   isStar: boolean;
@@ -13,17 +14,35 @@ interface Item {
 }
 const List = () => {
   // const json: Array<Item>
-  const { loading, data: json } = useRequest(() => {
-    return questionAPI.getQuestionnaireList().then(res => {
-      console.log(res)
+  // 获取路由查询参数
+  const [searchParams] = useSearchParams();
+  const queryUrl = searchParams.get('query')
+  const [loading,setLoading] = useState(true)
+  const [json,setJson] = useState(Object)
+  useEffect(()=>{
+    setLoading(true)
+    questionAPI.getQuestionnaireList({query:queryUrl || ''}).then(res => {
+      
+      setJson(res)
+      setLoading(false)
       return res
     })
-  })
+  },[queryUrl])
+  
+  // const { loading, data: json } = useRequest(() => {
+  //   console.log(1)
+  //   return questionAPI.getQuestionnaireList({query:queryUrl || ''}).then(res => {
+  //     console.log(res)
+  //     return res
+  //   })
+  // })
+      
   // , {
   //   onSuccess: (result) => {
   //     console.log(result)
   //   },
   // })
+
 
 
   const nav = useNavigate();

@@ -17,7 +17,7 @@ const Edit = () => {
   const { id = '' } = useParams()
 
   const load= ()=>{
-    return questionAPI.singleQuestionnaire({id}).then(res => {
+    return questionAPI.getQuestionnaireList({id}).then(res => {
       console.log(res.data);
       return res.data
     })
