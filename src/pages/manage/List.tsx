@@ -2,7 +2,7 @@ import ListCompoment from '@/components/List';
 import { useNavigate,useSearchParams } from 'react-router-dom';
 import { Pagination } from 'antd';
 import questionAPI from '@/api/questionAPI'
-import { useRequest } from 'ahooks'
+// import { useRequest } from 'ahooks'
 import {useEffect,useState}from 'react'
 interface Item {
   id: number;
