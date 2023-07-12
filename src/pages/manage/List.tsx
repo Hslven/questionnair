@@ -1,19 +1,31 @@
 import ListCompoment from '@/components/List';
 import { useNavigate } from 'react-router-dom';
 import { Pagination } from 'antd';
+import questionAPI from '@/api/questionAPI'
+import { useRequest } from 'ahooks'
 interface Item {
   id: number;
   isStar: boolean;
   title: string;
   isPublished: boolean;
+  answerCount: number;
+  createdAt: string;
 }
 const List = () => {
   // const json: Array<Item>
-  const json: Item[] = [
-    { id: 1, title: '问卷1', isStar: false, isPublished: false },
-    { id: 2, title: '问卷2', isStar: true, isPublished: true },
-    { id: 3, title: '问卷3', isStar: false, isPublished: false },
-  ];
+  const { loading, data: json } = useRequest(() => {
+    return questionAPI.getQuestionnaireList().then(res => {
+      console.log(res)
+      return res
+    })
+  })
+  // , {
+  //   onSuccess: (result) => {
+  //     console.log(result)
+  //   },
+  // })
+
+
   const nav = useNavigate();
   function editJump(id: number) {
     nav(`/question/edit/${id}`);
@@ -24,8 +36,9 @@ const List = () => {
 
   return (
     <>
-      {json.length > 0 &&
-        json.map((item) => {
+      {loading && <div className="loader"></div>}
+      {!loading &&
+        json.list.map((item: Item) => {
           return (
             <ListCompoment
               key={item.id}
@@ -37,8 +50,9 @@ const List = () => {
               onClickStat={() => statJump(item.id)}
             />
           );
-        })}
-      <Pagination defaultCurrent={1} total={50} style={{ textAlign: 'center' }} />
+        })
+      }
+      {!loading && <div><Pagination defaultCurrent={1} total={json.total} pageSize={json.pageSize} style={{ textAlign: 'center' }} /></div>}
     </>
   );
 };

@@ -4,8 +4,14 @@ import { post, get } from "@/utils/request";
  * @param {object} params
  * */
 
+type QuestionnaireListParams = {
+  page?: number;
+  pageSize?: number;
+  query?: string;
+  id?:string | number
+}
+
 export default {
-  // Create questionnaire
   newQuestionnaire: () => post({ url: "/api/question"}),
-  singleQuestionnaire: (params: object = {}) => get({ url: "/api/question", params }),
+  getQuestionnaireList: (params:QuestionnaireListParams={}) => get({ url: "/api/question",params}),
 };

@@ -15,12 +15,17 @@ const useLoadQuestionData = () => {
   //   })
   // }, [])
   const load= ()=>{
-    return questionAPI.singleQuestionnaire({id}).then(res => {
-      console.log(res.data);
+    return questionAPI.getQuestionnaireList({id}).then(res => {
+      // console.log(res.data);
       return res.data
     })
   }
-  const {loading,error,data}= useRequest(load)
+  const {loading,error,data}= useRequest(()=>{
+    return questionAPI.getQuestionnaireList({id}).then(res => {
+      // console.log(res.data);
+      return res.data
+    })
+  })
   return {loading, error,data}
 }
 export default useLoadQuestionData

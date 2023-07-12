@@ -3,8 +3,12 @@ import { useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 import { Button } from 'antd';
 import { CloseCircleOutlined, SearchOutlined } from '@ant-design/icons';
 import { LIST_SEARCH_PARAM_KEY } from '@/constant/index';
+import questionAPI from '@/api/questionAPI'
+import { useRequest } from 'ahooks'
+
 import style from './Components.module.scss';
 const Search: React.FC = () => {
+  // Search button event
   const [value, setValue] = useState<string>('');
   const [visible, setVisible] = useState<boolean>(false);
   const searchValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -15,18 +19,26 @@ const Search: React.FC = () => {
     setValue('');
   };
   // 搜索按钮点击添加查询参数
-  const nav = useNavigate();
-  const { pathname } = useLocation();
+  // const nav = useNavigate();
+  // const { pathname } = useLocation();
   const local = useLocation();
   const searchHandle = () => {
     if (!value && !local.search) return;
-    if (!value) {
-      return nav(pathname);
-    }
-    nav({
-      pathname,
-      search: `${LIST_SEARCH_PARAM_KEY}=${value}`,
-    });
+    // if (!value) {
+    //   return nav(pathname);
+    // }
+    // nav({
+    //   pathname,
+    //   search: `${LIST_SEARCH_PARAM_KEY}=${value}`,
+    // });
+    useRequest(() => {
+      return questionAPI.getQuestionnaireList({ query: value }).then(res => {
+        console.log(res);
+        return res;
+      });
+    },{
+      manual: true,
+    })
   };
 
 
@@ -34,7 +46,6 @@ const Search: React.FC = () => {
     const keyHandle = (e: KeyboardEvent) => {
       // 监听enter建查询
       if (e.key === 'Enter') {
-        console.log(1);
         searchHandle();
       }
       // 监听esc键清空输入框
