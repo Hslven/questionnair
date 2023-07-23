@@ -2,7 +2,7 @@ import axios from "axios";
 import { message } from "antd";
 const $axios = axios.create({
   // 开发环境下使用
-  baseURL: import.meta.env.VITE_API_URL,
+  baseURL: import.meta.env.VITE_API_URL ,
   // node环境下使用
   // baseURL: 'http://localhost:3001', 
   timeout: 100000,

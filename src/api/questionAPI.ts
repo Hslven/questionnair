@@ -7,11 +7,12 @@ import { post, get } from "@/utils/request";
 type QuestionnaireListParams = {
   page?: number;
   pageSize?: number;
-  query?: string;
+  keyword?: string;
   id?:string | number
 }
 
 export default {
   newQuestionnaire: () => post({ url: "/api/question"}),
+  // 
   getQuestionnaireList: (params:QuestionnaireListParams={}) => get({ url: "/api/question",params}),
 };

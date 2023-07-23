@@ -16,34 +16,22 @@ const List = () => {
   // const json: Array<Item>
   // 获取路由查询参数
   const [searchParams] = useSearchParams();
-  const queryUrl = searchParams.get('query')
+  // const queryUrl = searchParams.get('page') || 1
   const [loading,setLoading] = useState(true)
   const [json,setJson] = useState(Object)
-  useEffect(()=>{
+
+  function getData(obj?:object){
     setLoading(true)
-    questionAPI.getQuestionnaireList({query:queryUrl || ''}).then(res => {
-      
-      setJson(res)
+    questionAPI.getQuestionnaireList(obj).then(res => {
+      console.log(res)
+      setJson(res.data)
       setLoading(false)
       return res
     })
-  },[queryUrl])
-  
-  // const { loading, data: json } = useRequest(() => {
-  //   console.log(1)
-  //   return questionAPI.getQuestionnaireList({query:queryUrl || ''}).then(res => {
-  //     console.log(res)
-  //     return res
-  //   })
-  // })
-      
-  // , {
-  //   onSuccess: (result) => {
-  //     console.log(result)
-  //   },
-  // })
-
-
+  }
+  useEffect(()=>{
+    getData()
+  },[])
 
   const nav = useNavigate();
   function editJump(id: number) {
@@ -53,9 +41,15 @@ const List = () => {
     nav(`/question/stat/${id}`);
   }
 
+  function paginationChange(page:number,pageSize:number){
+    nav({
+      search:[`page=${page}`,`pageSize=${pageSize}`].join('&'),
+    })
+    getData({page,pageSize})
+  }
   return (
-    <>
-      {loading && <div className="loader"></div>}
+    <div >
+     {loading && <div className="loader"></div>}
       {!loading &&
         json.list.map((item: Item) => {
           return (
@@ -71,8 +65,9 @@ const List = () => {
           );
         })
       }
-      {!loading && <div><Pagination defaultCurrent={1} total={json.total} pageSize={json.pageSize} style={{ textAlign: 'center' }} /></div>}
-    </>
+      {!loading && 
+      <Pagination style={{padding:'30px 0 300px',textAlign: 'center'}} onChange={paginationChange} defaultCurrent={json.page} total={json.total} pageSize={json.pageSize} />}
+    </div>
   );
 };
 export default List;
