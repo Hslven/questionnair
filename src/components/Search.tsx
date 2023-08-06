@@ -3,12 +3,16 @@ import { useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 import { Button } from 'antd';
 import { CloseCircleOutlined, SearchOutlined } from '@ant-design/icons';
 import { LIST_SEARCH_PARAM_KEY } from '@/constant/index';
-
-
 import style from './Components.module.scss';
-const Search: React.FC = () => {
+
+interface SearchProps {
+  onClick: () => void;
+}
+
+const Search: React.FC<SearchProps> = ({ onClick }) => {
   // Search button event
   const [value, setValue] = useState<string>('');
+  // Clear button event
   const [visible, setVisible] = useState<boolean>(false);
   const searchValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
@@ -16,21 +20,43 @@ const Search: React.FC = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const clearSearchValue = (_: React.MouseEvent<HTMLSpanElement>) => {
     setValue('');
+    nav(pathname)
+
   };
   // 搜索按钮点击添加查询参数
   const nav = useNavigate();
   const { pathname } = useLocation();
-  const local = useLocation();
+
   const searchHandle = () => {
-    if (!value && !local.search) return;
-    if (!value) {
-      return nav(pathname);
-    }
+    // 没有搜索内容则返回
+    // if (!value) {
+    //   return nav(pathname);
+    // }
     nav({
       pathname,
       search: `${LIST_SEARCH_PARAM_KEY}=${value}`,
     });
   };
+
+
+  // 获取url参数，并设置到input
+  const [searchParams] = useSearchParams();
+  useEffect(() => {
+    console.log(1)
+    const curVal = searchParams.get(LIST_SEARCH_PARAM_KEY) || '';
+    setValue(curVal);
+  }, [searchParams]);
+
+  // 监听是否显示清空按钮
+  useEffect(() => {
+    if (value === '') {
+      // nav(pathname)
+      setVisible(false);
+    }
+    if (value) {
+      setVisible(true);
+    }
+  }, [value]); // 依赖于visible,只有visible变化时才执行
 
 
   useEffect(() => {
@@ -50,21 +76,6 @@ const Search: React.FC = () => {
     };
   }); // 这里不用改变，还是要把keyHandle作为依赖项
 
-  // 使用useEffect来监听value的变化
-  useEffect(() => {
-    if(value==='') return nav(pathname);
-    if (value) {
-      return setVisible(true);
-    }
-    setVisible(false);
-  }, [value]); // 依赖于visible,只有visible变化时才执行
-
-  // 获取url参数，并设置到input
-  const [searchParams] = useSearchParams();
-  useEffect(() => {
-    const curVal = searchParams.get(LIST_SEARCH_PARAM_KEY) || '';
-    setValue(curVal);
-  }, [searchParams]);
 
   return (<div className={style.search}>
     <input placeholder="Searth the internet..." type="text" onChange={searchValueChange} className={style.input} value={value} />

@@ -12,7 +12,10 @@ type QuestionnaireListParams = {
 }
 
 export default {
-  newQuestionnaire: () => post({ url: "/api/question"}),
-  // 
-  getQuestionnaireList: (params:QuestionnaireListParams={}) => get({ url: "/api/question",params}),
+  // 获取单个问卷
+  getQuestionService: (id:string) => get({ url: `/api/question/${id}`}),
+// 创建问卷
+  createQuestionService: () => post({ url: "/api/question"}),
+  //  获取查询列表
+  getQuestionListService: () => get({ url: "/api/question"}),
 };

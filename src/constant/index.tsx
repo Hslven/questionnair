@@ -1,4 +1,4 @@
-const LIST_SEARCH_PARAM_KEY = 'query';
+const LIST_SEARCH_PARAM_KEY = 'keyword';
 
 
 export {

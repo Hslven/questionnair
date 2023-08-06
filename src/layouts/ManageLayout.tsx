@@ -58,7 +58,7 @@ const ManageLayout = () => {
   //     setIsDisabled(false)
   //   })
   // }
-  const { loading:isDisabled, run: handleToNewQuestionnaire} = useRequest(questionAPI.newQuestionnaire, {
+  const { loading:isDisabled, run: handleToNewQuestionnaire} = useRequest(questionAPI.createQuestionService, {
     manual: true,
     onSuccess: (res) => {
       console.log(res)
@@ -68,6 +68,9 @@ const ManageLayout = () => {
       }
     }
   })
+  function searchHandle(){
+    console.log(1)
+  }
   return (
     <Layout style={{ height: '100%' }}>
       <Layout.Sider width={250} style={manageSide}>
@@ -102,8 +105,8 @@ const ManageLayout = () => {
       </Layout.Sider>
       <Layout.Content style={{ padding: '1.25rem 1.25rem' }}>
         <div style={manageContentTitle}>
-          <span>{headText}</span>
-          <Search />
+          <h2>{headText}</h2>
+          <Search onClick={searchHandle}/>
         </div>
         <Outlet />
       </Layout.Content>
