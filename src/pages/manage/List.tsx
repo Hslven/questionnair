@@ -19,7 +19,16 @@ const List = () => {
   // const queryUrl = searchParams.get('page') || 1
   const [loading,setLoading] = useState(true)
   const [json,setJson] = useState(Object)
+  // 跳转
+  const nav = useNavigate();
+  function editJump(id: number) {
+    nav(`/question/edit/${id}`);
+  }
+  function statJump(id: number) {
+    nav(`/question/stat/${id}`);
+  }
 
+  // 获取数据
   function getData(obj?:object){
     setLoading(true)
     questionAPI.getQuestionnaireList(obj).then(res => {
@@ -29,24 +38,19 @@ const List = () => {
       return res
     })
   }
+  
   useEffect(()=>{
     getData()
   },[])
-
-  const nav = useNavigate();
-  function editJump(id: number) {
-    nav(`/question/edit/${id}`);
-  }
-  function statJump(id: number) {
-    nav(`/question/stat/${id}`);
-  }
-
+ 
+  // 分页
   function paginationChange(page:number,pageSize:number){
     nav({
       search:[`page=${page}`,`pageSize=${pageSize}`].join('&'),
     })
     getData({page,pageSize})
   }
+  
   return (
     <div >
      {loading && <div className="loader"></div>}
