@@ -61,11 +61,8 @@ const ManageLayout = () => {
   const { loading:isDisabled, run: handleToNewQuestionnaire} = useRequest(questionAPI.createQuestionService, {
     manual: true,
     onSuccess: (res) => {
-      console.log(res)
-      const { id } = res.data
-      if (res.error === 0) {
-        nav(`/question/edit/${id}`)
-      }
+      const { id } = res
+      nav(`/question/edit/${id}`)
     }
   })
   function searchHandle(){
