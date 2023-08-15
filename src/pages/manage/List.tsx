@@ -1,9 +1,9 @@
-import ListCompoment from '@/components/List';
-import { useNavigate,useSearchParams } from 'react-router-dom';
+import ListComponent from '@/components/List';
+import { useNavigate} from 'react-router-dom';
 // import { Pagination } from 'antd';
-import questionAPI from '@/api/questionAPI'
-import { useRequest } from 'ahooks'
-import {useEffect,useState}from 'react'
+import { useTitle } from 'ahooks'
+import useLoadQuestionListData from '@/hooks/useLoadQuestionListData'
+import {useState}from 'react'
 interface Item {
   id: number;
   isStar: boolean;
@@ -17,6 +17,8 @@ const List = () => {
   // 获取路由查询参数
   // const [searchParams] = useSearchParams();
   // const queryUrl = searchParams.get('page') || 1
+  useTitle("小木问卷 - 我的问卷");
+
   // 跳转
   const nav = useNavigate();
   function editJump(id: number) {
@@ -30,27 +32,29 @@ const List = () => {
   // console.log(data)
   // const {list=[],total=0} = data
 
-  const [json,setJson] = useState(Object)
-  const [total,setTotal] = useState(0)
-  const [loading,setLoading] = useState(true)
-
   
-  // const {data,loading} = useRequest(questionAPI.getQuestionListService)
-  // const { list = [], total = 0 } = data;
-
-  useEffect(()=>{
-    async  function getData(){
-      setLoading(true)
-      const data = await questionAPI.getQuestionListService()
-      console.log(data)
-      const {list=[],total=0} = data
-      setJson(list)
-      setLoading(false)
-      setTotal(total)
-      return data
-    }
-    getData()
-  },[])
+  
+  // const {json = {},loading} = useRequest(questionAPI.getQuestionListService)
+  // const { list = [], total = 0 } = json;
+  
+  // const [json,setJson] = useState(Object)
+  // const [total,setTotal] = useState(0)
+  // const [loading,setLoading] = useState(true)
+  const {data={},loading} = useLoadQuestionListData()
+  const {list ={},total=0} = data
+  // useEffect(()=>{
+  //   async  function getData(){
+  //     setLoading(true)
+  //     const {data,loading} = await useLoadQuestionListData()
+  //     console.log(data)
+  //     // const {list=[],total=0} = data
+  //     setJson(data)
+  //     setLoading(false)
+  //     setTotal(total)
+  //     return data
+  //   }
+  //   getData()
+  // },[])
  
   // 分页
   // function paginationChange(page:number,pageSize:number){
@@ -64,16 +68,13 @@ const List = () => {
     <div style={{paddingBottom:'80px'}}>
      {loading && <div className="loader"></div>}
       {!loading &&
-        json.map((item: Item) => {
+        list.map((item: Item) => {
           return (
-            <ListCompoment
+            <ListComponent
               key={item.id}
-              _id={item.id}
-              isStar={item.isStar}
-              title={item.title}
-              isPublished={item.isPublished}
-              onClickEdit={() => editJump(item.id)}
-              onClickStat={() => statJump(item.id)}
+              {...item}
+              // onClickEdit={() => editJump(item.id)}
+              // onClickStat={() => statJump(item.id)}
             />
           );
         })

@@ -42,7 +42,6 @@ const Search: React.FC<SearchProps> = ({ onClick }) => {
   // 获取url参数，并设置到input
   const [searchParams] = useSearchParams();
   useEffect(() => {
-    console.log(1)
     const curVal = searchParams.get(LIST_SEARCH_PARAM_KEY) || '';
     setValue(curVal);
   }, [searchParams]);

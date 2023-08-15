@@ -10,7 +10,11 @@ import axios , { ResDataType } from "@/utils/request";
 //   keyword?: string;
 //   id?:string | number
 // }
-
+type SearchOption = {
+  keyword: string;
+  isStar: boolean;
+  isDelete: boolean;
+}
 export default {
   // 获取单个问卷
   // getQuestionService: (id:string):Promise<ResDataType> => get({ url: `/api/question/${id}`}),
@@ -25,11 +29,10 @@ export default {
     const data =(await axios.post(url) as ResDataType)
     return data
   },
-  // //  获取查询列表
-  // getQuestionListService: () => get({ url: "/api/question"}),
-  getQuestionListService: async ():Promise<ResDataType> => {
+  //  获取查询列表
+  getQuestionListService: async (opt:Partial<SearchOption>):Promise<ResDataType> => {
     const url = `/api/question/`
-    const data =(await axios.get(url) as ResDataType)
+    const data =(await axios.get(url,{params:opt}) as ResDataType)
     return data
   },
 };
