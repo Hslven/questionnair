@@ -36,6 +36,7 @@ export type ResDataType = {
   [key:string]:any
 }
 
+
 // const request = function (query: object) {
 //   return $axios.request(query)
 //     .then((res) => {

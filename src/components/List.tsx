@@ -9,14 +9,14 @@ import {
 } from '@ant-design/icons';
 import style from './Components.module.scss';
 type Props = {
-  _id: number;
+  id: number;
   title: string;
   isStar: boolean;
   isPublished: boolean;
   answerCount?: number;
   createdAt?: string;
-  onClickEdit: () => void;
-  onClickStat: () => void;
+  onClickEdit?: () => void;
+  onClickStat?: () => void;
 };
 const Demo: React.FC<Props> = (props) => {
   // 获取当前日期和时间
