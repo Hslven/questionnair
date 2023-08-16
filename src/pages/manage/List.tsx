@@ -3,7 +3,6 @@ import { useNavigate} from 'react-router-dom';
 // import { Pagination } from 'antd';
 import { useTitle } from 'ahooks'
 import useLoadQuestionListData from '@/hooks/useLoadQuestionListData'
-import {useState}from 'react'
 interface Item {
   id: number;
   isStar: boolean;
@@ -40,29 +39,8 @@ const List = () => {
   // const [json,setJson] = useState(Object)
   // const [total,setTotal] = useState(0)
   // const [loading,setLoading] = useState(true)
-  const {data={},loading} = useLoadQuestionListData()
+  const {data={},loading} = useLoadQuestionListData({})
   const {list ={},total=0} = data
-  // useEffect(()=>{
-  //   async  function getData(){
-  //     setLoading(true)
-  //     const {data,loading} = await useLoadQuestionListData()
-  //     console.log(data)
-  //     // const {list=[],total=0} = data
-  //     setJson(data)
-  //     setLoading(false)
-  //     setTotal(total)
-  //     return data
-  //   }
-  //   getData()
-  // },[])
- 
-  // 分页
-  // function paginationChange(page:number,pageSize:number){
-    // nav({
-    //   search:[`page=${page}`,`pageSize=${pageSize}`].join('&'),
-    // })
-    // getData({page,pageSize})
-  // }
   
   return (
     <div style={{paddingBottom:'80px'}}>

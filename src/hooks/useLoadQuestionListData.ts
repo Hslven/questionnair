@@ -8,7 +8,7 @@ type OptionType = {
     isDelete:boolean
 }
 function useLoadQuestionListData(opt:Partial<OptionType>={}){
-    const {isStar = false,isDelete=false} = opt
+    const {isStar,isDelete} = opt
     const [searchParams] = useSearchParams()
     const {data,loading,error} = useRequest(async ()=>{
         const keyword = searchParams.get(LIST_SEARCH_PARAM_KEY) || ''
