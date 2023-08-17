@@ -15,7 +15,6 @@ const Star = () => {
 
   const {data={},loading} = useLoadQuestionListData({isStar:true})
   const {list ={},total=0} = data
-  console.log(list)
   return (
     <div style={{paddingBottom:'80px'}}>
     {loading && <div className="loader"></div>}
