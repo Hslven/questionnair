@@ -15,7 +15,7 @@ const useLoadQuestionData = () => {
   //   })
   // }, [])
   const load= async ()=>{
-    const data = await questionAPI.getQuestionService(id)
+const data = await questionAPI.getQuestionService(id)
     // return questionAPI.getQuestionService(id).then(res => {
       console.log(data,123124);
       // console.log(res.data);
