@@ -20,12 +20,11 @@ const MainLayout: React.FC = () => {
           </div>
         </Space>
       </Header>
-      <Content style={{ minHeight: '599px' }}>
+      <Content style={{ minHeight: '599px',display:'flex' }}>
         <Outlet />
       </Content>
       <Footer
         style={{
-          position: 'fixed',
           bottom: 0,
           width: '100%',
           textAlign: 'center',

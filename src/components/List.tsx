@@ -1,13 +1,10 @@
 import { Divider, Button, Space, Tag, message, Modal } from 'antd';
-import { useState } from "react";
-import {
-  EditOutlined,
-  DotChartOutlined,
-  DeleteOutlined,
-  CopyOutlined,
-  StarOutlined,
-} from '@ant-design/icons';
+import { useState, useEffect } from 'react';
+import { EditOutlined, DotChartOutlined, DeleteOutlined, CopyOutlined, StarOutlined } from '@ant-design/icons';
 import style from './Components.module.scss';
+import { useRequest } from 'ahooks';
+import { useNavigate } from 'react-router-dom';
+import api from '@/api/questionAPI';
 type Props = {
   id: number;
   title: string;
@@ -15,28 +12,49 @@ type Props = {
   isPublished: boolean;
   answerCount?: number;
   createdAt?: string;
-  onClickEdit?: () => void;
-  onClickStat?: () => void;
+  [key: string]: any;
 };
+
 const Demo: React.FC<Props> = (props) => {
+  // 保存组件中传过来的isStar
+  const [demoIsStarState, setDemoIsStarState] = useState(false);
+  const handleStarStateChanged = (val) => {
+    setDemoIsStarState(val);
+  };
+  // 保存组件中换过来的isDelete
+  const [demoIsDelete, setDemoIsDelete] = useState(false);
+  const handleDeleteStateChanged = (val) => {
+    setDemoIsDelete(val);
+  };
+  //在星标问卷，同步isStar和demoIsStarState
+  useEffect(() => {
+    handleStarStateChanged(props.isStar);
+  }, [props.isStar]);
+
+  // 已经删除的卡片不渲染
+  if (demoIsDelete) return null;
   // 获取当前日期和时间
   return (
     <div className={style.list}>
-      <Head {...props} />
+      <Head {...props} demoIsStarState={demoIsStarState} />
       <Divider style={{ border: 'none' }} />
-      <Footer {...props} />
+      <Footer
+        {...props}
+        onStarStateChanged={handleStarStateChanged}
+        handleDeleteStateChanged={handleDeleteStateChanged}
+      />
     </div>
   );
 };
 
-const Head: React.FC<Props> = ({ title, isStar, isPublished }) => {
+const Head: React.FC<Props> = ({ title, isPublished, demoIsStarState }) => {
   const time = new Date().toLocaleString();
   return (
     <div className={style.header}>
       <span>
         <Space>
           {title}
-          {isStar ? <StarOutlined style={{ color: 'red' }} /> : ''}
+          {demoIsStarState ? <StarOutlined style={{ color: 'red' }} /> : ''}
         </Space>
       </span>
       <div>
@@ -48,66 +66,75 @@ const Head: React.FC<Props> = ({ title, isStar, isPublished }) => {
     </div>
   );
 };
-
-const Footer = ({ onClickEdit, onClickStat, isPublished, isStar }: Props) => {
+const Footer = ({ handleDeleteStateChanged, onStarStateChanged, isPublished, isStar, id }: Props) => {
   const [messageApi, contextHolder] = message.useMessage();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-  const success = () => {
-    messageApi.open({
-      type: 'success',
-      content: '复制成功',
-      duration: 3,
-    });
-  };
+  const nav = useNavigate();
+  const [isStarState, setIsStarState] = useState(isStar);
+
+  const { loading, run: changeStar } = useRequest(
+    async () => api.updateQuestionService(id + '', { isStarState: !isStarState }),
+    {
+      manual: true,
+      onSuccess: () => {
+        onStarStateChanged(!isStarState);
+        setIsStarState(!isStarState);
+      },
+    },
+  );
+  const { run: duplicate } = useRequest(async () => api.duplicateQuestionService(id + ''), {
+    manual: true,
+    onSuccess: (result) => {
+      messageApi.success('复制成功');
+      console.log(result);
+      nav({
+        pathname: `/question/edit/${result.id}`,
+      });
+    },
+  });
+
+  // const [isDelete, setIsDelete] = useState(false);
+  const { run: deleteQuestion } = useRequest(async () => api.updateQuestionService(id + '', { isDelete: true }), {
+    manual: true,
+    onSuccess: () => {
+      setIsModalOpen(false);
+      handleDeleteStateChanged(true);
+      message.success('删除成功');
+    },
+  });
+
   return (
     <div className={style.cardFoot}>
       <div style={{ flex: 6 }}>
-        <Button type="text" icon={<EditOutlined />} onClick={onClickEdit}>
-          编辑问卷
-        </Button>
         <Button
           type="text"
-          icon={<DotChartOutlined />}
-          onClick={onClickStat}
-          disabled={!isPublished}
+          icon={<EditOutlined />}
+          onClick={() => {
+            console.log(123);
+          }}
         >
+          编辑问卷
+        </Button>
+        <Button type="text" icon={<DotChartOutlined />} disabled={!isPublished}>
           问卷统计
         </Button>
       </div>
-      <div
-        style={{ flex: 1, display: 'flex', justifyContent: 'space-between' }}
-      >
-        <Button type="text" icon={<StarOutlined />} size="small">
-          {!isStar ? '标星' : '取消标星'}
+      <div style={{ flex: 1, display: 'flex', justifyContent: 'space-between' }}>
+        <Button type="text" icon={<StarOutlined />} size="small" onClick={() => changeStar()} disabled={loading}>
+          {!isStarState ? '标星' : '取消标星'}
         </Button>
-        <Button
-          onClick={success}
-          type="text"
-          icon={<CopyOutlined />}
-          size="small"
-        >
+        <Button onClick={duplicate} type="text" icon={<CopyOutlined />} size="small">
           复制
         </Button>
-        <Button
-          onClick={showModal}
-          type="text"
-          icon={<DeleteOutlined />}
-          size="small"
-        >
+        <Button onClick={() => setIsModalOpen(true)} type="text" icon={<DeleteOutlined />} size="small">
           删除
         </Button>
       </div>
+      {/* 消息提示 */}
       {contextHolder}
       <Modal
         title="删除提醒"
         open={isModalOpen}
-        onOk={handleOk}
         footer={[
           <Button
             key="back"
@@ -117,12 +144,12 @@ const Footer = ({ onClickEdit, onClickStat, isPublished, isStar }: Props) => {
           >
             返回
           </Button>,
-          <Button key="delete" type="primary" danger onClick={handleOk}>
+          <Button key="delete" type="primary" danger onClick={deleteQuestion}>
             删除
           </Button>,
         ]}
       >
-        该选项会把问卷彻底删除，是否确定？
+        是否确定放入回收站？
       </Modal>
     </div>
   );
