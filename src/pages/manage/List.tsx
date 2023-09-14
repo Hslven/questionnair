@@ -1,9 +1,9 @@
 import ListCompoment from '@/components/List';
-import { useNavigate,useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Pagination } from 'antd';
 import questionAPI from '@/api/questionAPI'
-// import { useRequest } from 'ahooks'
-import {useEffect,useState}from 'react'
+import { useRequest } from 'ahooks'
+import { useEffect, useState } from 'react'
 interface Item {
   id: number;
   isStar: boolean;
@@ -22,21 +22,16 @@ const List = () => {
   useEffect(()=>{
     setLoading(true)
     questionAPI.getQuestionnaireList({query:queryUrl || ''}).then(res => {
-      
+
       setJson(res)
       setLoading(false)
       return res
     })
   },[queryUrl])
-  
-  // const { loading, data: json } = useRequest(() => {
-  //   console.log(1)
-  //   return questionAPI.getQuestionnaireList({query:queryUrl || ''}).then(res => {
-  //     console.log(res)
-  //     return res
-  //   })
-  // })
-      
+
+  // useEffect(() => {
+  //   run()
+  // }, [queryUrl])
   // , {
   //   onSuccess: (result) => {
   //     console.log(result)

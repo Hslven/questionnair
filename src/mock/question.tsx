@@ -10,46 +10,55 @@ const arr = [
     response: (data: any) => {
       let list = [
         {
-            "id": "330000197312114938",
-            "title": "和几感际业",
-            "isPublished": false,
-            "isStar": false,
-            "answerCount": 375,
-            "createdAt": "1980-08-03 19:11:15"
+          "id": "330000197312114938",
+          "title": "和几感际业",
+          "isPublished": false,
+          "isStar": false,
+          "answerCount": 375,
+          "createdAt": "1980-08-03 19:11:15",
+          inTrash: true
         },
         {
-            "id": "520000198005193314",
-            "title": "展确主六",
-            "isPublished": false,
-            "isStar": true,
-            "answerCount": 228,
-            "createdAt": "2011-09-14 12:00:16"
+          "id": "520000198005193314",
+          "title": "展确主六",
+          "isPublished": false,
+          "isStar": true,
+          "answerCount": 228,
+          "createdAt": "2011-09-14 12:00:16",
+          inTrash: true
+
+
         },
         {
-            "id": "620000200108052139",
-            "title": "收市",
-            "isPublished": false,
-            "isStar": true,
-            "answerCount": 480,
-            "createdAt": "2003-12-11 15:13:21"
+          "id": "620000200108052139",
+          "title": "收市",
+          "isPublished": false,
+          "isStar": true,
+          "answerCount": 480,
+          "createdAt": "2003-12-11 15:13:21",
+          inTrash: false
+
         },
         {
-            "id": "540000200707223497",
-            "title": "光来空并北",
-            "isPublished": false,
-            "isStar": true,
-            "answerCount": 228,
-            "createdAt": "2010-10-29 04:09:16"
+          "id": "540000200707223497",
+          "title": "光来空并北",
+          "isPublished": false,
+          "isStar": true,
+          "answerCount": 228,
+          "createdAt": "2010-10-29 04:09:16",
+          inTrash: true
+
         },
         {
-            "id": "520000200404177223",
-            "title": "变细题",
-            "isPublished": false,
-            "isStar": true,
-            "answerCount": 777,
-            "createdAt": "2008-03-01 07:28:52"
+          "id": "520000200404177223",
+          "title": "变细题",
+          "isPublished": false,
+          "isStar": true,
+          "answerCount": 777,
+          "createdAt": "2008-03-01 07:28:52",
+          inTrash: false
         }
-    ]
+      ]
       // for (let i = 1; i < 10; i++) {
       //   list.push({
       //     id: Random.id(),
@@ -60,7 +69,7 @@ const arr = [
       //     createdAt: Random.datetime(),
       //   })
       // }
-      if (!data.url.includes('?'))return  { list:list.splice(0, 5), total: 100, page:  1, pageSize: 5 }
+      if (!data.url.includes('?')) return { list: list.splice(0, 5), total: 100, page: 1, pageSize: 5 }
       const str = data.url.split('?')[1].replace("=", ":")
       const key = "\"" + str.split(':')[0] + "\""
       const object = JSON.stringify(decodeURIComponent(str.split(':')[1]))
