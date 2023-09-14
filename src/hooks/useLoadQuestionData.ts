@@ -14,18 +14,20 @@ const useLoadQuestionData = () => {
   //     setLoading(false)
   //   })
   // }, [])
-  const load= ()=>{
-    return questionAPI.getQuestionnaireList({id}).then(res => {
+  const load= async ()=>{
+const data = await questionAPI.getQuestionService(id)
+    // return questionAPI.getQuestionService(id).then(res => {
+      console.log(data,123124);
       // console.log(res.data);
-      return res.data
-    })
+    return data
+    // })
   }
-  const {loading,error,data}= useRequest(()=>{
-    return questionAPI.getQuestionnaireList({id}).then(res => {
-      // console.log(res.data);
-      return res.data
-    })
-  })
+  const {loading,error,data}= useRequest(load)
+    // return questionAPI.getQuestionService(id).then(res => {
+    //   // console.log(res.data);
+    //   return res.data
+    // })
+  
   return {loading, error,data}
 }
 export default useLoadQuestionData

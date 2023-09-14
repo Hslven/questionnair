@@ -1,10 +1,10 @@
 // import { useEffect,useState } from "react";
-import {useParams} from 'react-router-dom'
-import questionAPI from '@/api/questionAPI'
-import { useRequest } from "ahooks";
-// import useLoadQuestionData from '@/hooks/useLoadQuestionData'
+// import {useParams} from 'react-router-dom'
+// import questionAPI from '@/api/questionAPI'
+// import { useRequest } from "ahooks";
+import useLoadQuestionData from '@/hooks/useLoadQuestionData'
 const Edit = () => {
-  // const {loading , data} = useLoadQuestionData()
+  const {loading , data} = useLoadQuestionData() 
   // const {id = ''} = useParams()
   // const [questionData,setQuestionData] = useState(Object)
   // const [loading,setLoading] = useState(true)
@@ -14,20 +14,20 @@ const Edit = () => {
   //     setLoading(false)
   //   })
   // },[])
-  const { id = '' } = useParams()
+  // const { id = '' } = useParams()
 
-  const load= ()=>{
-    return questionAPI.getQuestionnaireList({id}).then(res => {
-      console.log(res.data);
-      return res.data
-    })
-  }
-  const {loading,error,data}= useRequest(load)
+  // const load= ()=>{
+  //   return questionAPI.getQuestionService(id).then(res => {
+  //     console.log(res.data);
+  //     return res.data
+  //   })
+  // }
+  // const {loading,error,data}= useRequest(load)
   return (
-    <>
+    <div style={{color:'#000'}}>
       <p>edit page</p>
        {loading ? 'loading':JSON.stringify(data)}
-    </>
+    </div>
   );
 };
 export default Edit;

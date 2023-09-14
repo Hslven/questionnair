@@ -29,45 +29,34 @@ const ManageLayout = () => {
   const { pathname } = useLocation();
   const nav = useNavigate();
   const [headText, setHeadText] = useState('我的问卷')
+
+
   // Jump the corresponding page to modify the head text as the corresponding text
+  const temporary: any = {
+    'list': { text: '我的问卷', title: '小木问卷 - 我的问卷' },
+    'star': { text: '星标问卷', title: '小木问卷 - 星标问卷' },
+    'trash': { text: '回收站', title: '小木问卷 - 回收站' }
+
+}
+
   function jump(URL: string) {
     nav(URL);
-    switch (URL) {
-      case 'list':
-        setHeadText('我的问卷');
-        break;
-      case 'star':
-        setHeadText('星标问卷');
-        break;
-      case 'trash':
-        setHeadText('回收站');
-        break;
-      default:
-        break;
-    }
+
+    setHeadText(temporary[URL].text)
+    document.title = temporary[URL].title
+
   }
-  // Click the new questionnaire jump to the new questionnaire editing page
-  // const [isDisabled, setIsDisabled] = useState(false)
-  // function handleToNewQuestionnaire() {
-  //   setIsDisabled(true)
-  //   questionAPI.newQuestionnaire().then(res => {
-  //     const { id } = res.data
-  //     if (res.error === 0) {
-  //       nav(`/question/edit/${id}`)
-  //     }
-  //     setIsDisabled(false)
-  //   })
-  // }
-  const { loading:isDisabled, run: handleToNewQuestionnaire} = useRequest(questionAPI.newQuestionnaire, {
+
+  const { loading: isDisabled, run: handleToNewQuestionnaire } = useRequest(questionAPI.createQuestionService, {
     manual: true,
     onSuccess: (res) => {
-      console.log(res)
-      const { id } = res.data
-      if (res.error === 0) {
-        nav(`/question/edit/${id}`)
-      }
+      const { id } = res
+      nav(`/question/edit/${id}`)
     }
   })
+  function searchHandle() {
+    console.log(1)
+  }
   return (
     <Layout style={{ height: '100%' }}>
       <Layout.Sider width={250} style={manageSide}>
@@ -102,8 +91,8 @@ const ManageLayout = () => {
       </Layout.Sider>
       <Layout.Content style={{ padding: '1.25rem 1.25rem' }}>
         <div style={manageContentTitle}>
-          <span>{headText}</span>
-          <Search />
+          <h2>{headText}</h2>
+          <Search onClick={searchHandle} />
         </div>
         <Outlet />
       </Layout.Content>

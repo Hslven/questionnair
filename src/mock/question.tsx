@@ -8,6 +8,7 @@ const arr = [
     url: /\/mock\/api\/question\/*/,
     methods: "get",
     response: (data: any) => {
+      console.log(data)
       let list = [
         {
           "id": "330000197312114938",
@@ -58,23 +59,23 @@ const arr = [
           "createdAt": "2008-03-01 07:28:52",
           inTrash: false
         }
-      ]
-      // for (let i = 1; i < 10; i++) {
-      //   list.push({
-      //     id: Random.id(),
-      //     title: Random.ctitle(2, 5),
-      //     isPublished: Random.boolean(),
-      //     isStar: Random.boolean(),
-      //     answerCount: Random.integer(0, 1000),
-      //     createdAt: Random.datetime(),
-      //   })
-      // }
-      if (!data.url.includes('?')) return { list: list.splice(0, 5), total: 100, page: 1, pageSize: 5 }
+    ]
+      for (let i = 1; i < 10; i++) {
+        list.push({
+          id: Random.id(),
+          title: Random.ctitle(2, 5),
+          isPublished: Random.boolean(),
+          isStar: Random.boolean(),
+          answerCount: Random.integer(0, 1000),
+          createdAt: Random.datetime(),
+        })
+      }
+      // 不传默认为5个
+      if (!data.url.includes('?'))return  { list:list.splice(0, 5), total: 100, page:  1, pageSize: 5 }
       const str = data.url.split('?')[1].replace("=", ":")
       const key = "\"" + str.split(':')[0] + "\""
       const object = JSON.stringify(decodeURIComponent(str.split(':')[1]))
       const json = JSON.parse('{' + key + ":" + object + '}')
-      console.log(json)
       if (json.page) {
         list = list.splice(json.pageSize * (json.page - 1), json.pageSize)
       } else {
