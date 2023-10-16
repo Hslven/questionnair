@@ -1,13 +1,14 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 import { Layout, Space, Typography, Button } from 'antd';
-import style from "./Layout.module.scss";
+import style from './Layout.module.scss';
 import Title from '@/components/Title';
+import UserInfo from '@/components/userInfo';
 const { Header, Footer, Content } = Layout;
 const MainLayout: React.FC = () => {
   const navigate = useNavigate();
-  function loginJump() {
-    navigate('/login');
-  }
+  // function loginJump() {
+  //   navigate('/login');
+  // }
 
   return (
     <Layout className={style.mainLayout}>
@@ -15,12 +16,13 @@ const MainLayout: React.FC = () => {
         <Space align="center" className={style.head}>
           {/* 艾卡问卷 */}
           <Title style={{ color: '#fff' }} />
-          <div onClick={loginJump} style={{ color: '#0092dc' }}>
-            <Button type="link" >登录</Button>
-          </div>
+          <UserInfo></UserInfo>
+          {/* <div onClick={loginJump} style={{ color: '#0092dc' }}>
+            <Button type="link">登录</Button>
+          </div> */}
         </Space>
       </Header>
-      <Content style={{ minHeight: '599px',display:'flex' }}>
+      <Content style={{ minHeight: '599px', display: 'flex' }}>
         <Outlet />
       </Content>
       <Footer

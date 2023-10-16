@@ -1,15 +1,10 @@
-import {
-  Typography,
-  Space,
-  Button,
-  Form,
-  Input,
-  message,
-} from 'antd';
+import { Typography, Space, Button, Form, Input, message } from 'antd';
 import { UserAddOutlined } from '@ant-design/icons';
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import style from './Home.module.scss';
+import api from '@/api/user.ts';
+import { useRequest } from 'ahooks';
 
 const Register = () => {
   return (
@@ -20,7 +15,7 @@ const Register = () => {
         </Typography.Title>
         <Typography.Title>Register New User</Typography.Title>
       </Space>
-      <div >
+      <div>
         <FormInput />
       </div>
     </div>
@@ -30,6 +25,8 @@ const Register = () => {
 const FormInput = () => {
   // password replay
   const [form] = Form.useForm();
+  // useNavigate
+  const nav = useNavigate();
   useEffect(() => {
     if (localStorage.getItem('USER_INFO')) {
       const { username, passwordBase64 } = JSON.parse(localStorage.getItem('USER_INFO') || '{}');
@@ -39,32 +36,10 @@ const FormInput = () => {
     }
   });
 
-  // form submission finish
-  const onFinish = (values: any) => {
-    // console.log("Success:", values);
-    const { username, password, remember } = values;
-    // if remember,saved
-    if (remember) {
-      // 密码加密
-      const passwordBase64 = btoa(password);
-      localStorage.setItem(
-        'USER_INFO',
-        JSON.stringify({ username, passwordBase64 }),
-      );
-    } else {
-      // else remove
-      localStorage.removeItem('USER_INFO');
-    }
-    onFinishFailed({}, { content: 'Register success', type: 'success' });
-  };
-
   // form submission failed
   type NoticeType = 'info' | 'success' | 'error' | 'warning' | 'loading';
   const [messageApi, contextHolder] = message.useMessage();
-  const onFinishFailed = (
-    _errorInfo?: any,
-    messgae?: { content: string; type: NoticeType },
-  ) => {
+  const onFinishFailed = (_errorInfo?: any, messgae?: { content: string; type: NoticeType }) => {
     if (messgae) {
       return messageApi.open({
         type: messgae.type || 'error',
@@ -80,6 +55,34 @@ const FormInput = () => {
     }
   };
 
+  // form submission finish
+  // const onFinish = (values: any) => {
+  //   run(values);
+  // };
+
+  // register useRequest
+  const { run } = useRequest(
+    (values) => {
+      const { username, password, nickname } = values;
+      messageApi.open({
+        type: 'loading',
+        content: 'Register in progress..',
+        duration: 0,
+      });
+      return api.registerApi(username, password, nickname);
+    },
+    {
+      manual: true,
+      onSuccess: (result) => {
+        // Dismiss manually and asynchronously
+        setTimeout(() => {
+          messageApi.destroy;
+          nav('/login', { replace: true });
+        }, 1500);
+        // onFinishFailed({}, { content: 'Register success', type: 'success' });
+      },
+    },
+  );
 
   return (
     <Form
@@ -89,16 +92,12 @@ const FormInput = () => {
       wrapperCol={{ span: 20 }}
       style={{ width: '400px' }}
       initialValues={{ remember: false }}
-      onFinish={onFinish}
+      onFinish={run}
       onFinishFailed={onFinishFailed}
       autoComplete="off"
     >
       {contextHolder}
-      <Form.Item
-        label="Username"
-        name="username"
-        rules={[{ required: true, message: 'Please input your username!' }]}
-      >
+      <Form.Item label="Username" name="username" rules={[{ required: true, message: 'Please input your username!' }]}>
         <Input />
       </Form.Item>
 
@@ -123,8 +122,6 @@ const FormInput = () => {
           },
           ({ getFieldValue }) => ({
             validator(_, value) {
-              console.log(getFieldValue('password'), value);
-
               if (!value || getFieldValue('password') === value) {
                 return Promise.resolve();
               }
@@ -136,16 +133,11 @@ const FormInput = () => {
         <Input.Password />
       </Form.Item>
 
-      <Form.Item label="Nickname" >
-        <Form.Item
-          name="nickname"
-          noStyle
-          rules={[{ required: true, message: 'Please input the nickname you got!' }]}
-        >
+      <Form.Item label="Nickname">
+        <Form.Item name="nickname" noStyle rules={[{ required: true, message: 'Please input the nickname you got!' }]}>
           <Input />
         </Form.Item>
       </Form.Item>
-
 
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
         <Space size={20}>
