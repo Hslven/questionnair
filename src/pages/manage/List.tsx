@@ -48,12 +48,15 @@ const List = () => {
     },
     {
       manual: true,
-      onSuccess: (res) => {
+      onSuccess: (res) => { 
         const { list: l = [], total = 0 } = res;
         setList(list.concat(l));
         setTotal(total);
         setPage(page + 1);
       },
+      onError: (_err) => {
+        setStarted(true);
+      }
     },
   );
 
@@ -92,6 +95,7 @@ const List = () => {
   }, [searchParams, haveMoreData]);
 
   const LoadMoreContentElm = useMemo(() => {
+    console.log(started, loading, total, haveMoreData)
     if (!started || loading) return <div className="loader"></div>;
     if (total === 0 || !haveMoreData) return <Empty description="没有更多数据了"></Empty>;
     return <span>开始加载下一页</span>;
